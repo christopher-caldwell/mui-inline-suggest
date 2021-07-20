@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, KeyboardEvent } from 'react'
 import { TextFieldProps } from '@material-ui/core'
-import memoize from 'lodash.memoize'
 
 import Input from './help/Input'
 import Suggestion from './help/Suggestion'
@@ -14,7 +13,6 @@ import {
   KeyEnum
 } from '../utils'
 
-const memoizedFilterSuggestions = memoize(filterSuggestions)
 export const InlineSuggest = function <T>({
   getSuggestionValue,
   suggestions,
@@ -23,94 +21,104 @@ export const InlineSuggest = function <T>({
   onInputBlur,
   navigate,
   shouldRenderSuggestion,
-  onMatch
+  onMatch,
+  textFieldProps
 }: Props<T>) {
   const [activeIndex, setActiveIndex] = useState(-1)
   const [value, setValue] = useState('')
+  const [isFocused, setIsFocused] = useState(false)
 
-  const handleOnBlur: TextFieldProps['onBlur'] = ({ target: { value } }) => {
-    onInputBlur && onInputBlur(value)
-  }
-  const fireOnChange = (newValue: string) => {
-    onInputChange && onInputChange(newValue)
-  }
+  const handleFocus = useCallback(() => {
+    setIsFocused(true)
+  }, [])
+  
+  const handleOnBlur: TextFieldProps['onBlur'] = useCallback(
+    ({ target: { value } }) => {
+      onInputBlur && onInputBlur(value)
+      setIsFocused(false)
+    },
+    [onInputBlur]
+  )
 
-  const handleOnChange: TextFieldProps['onChange'] = (e) => {
-    const valueFromEvent = e.currentTarget.value
+  const fireOnChange = useCallback(
+    (newValue: string) => {
+      onInputChange && onInputChange(newValue)
+    },
+    [onInputChange]
+  )
 
-    const newMatchedArray = memoizedFilterSuggestions(
-      valueFromEvent,
-      suggestions,
-      Boolean(ignoreCase),
-      getSuggestionValue
-    )
+  const handleOnChange: TextFieldProps['onChange'] = useCallback(
+    (e) => {
+      const valueFromEvent = e.currentTarget.value
 
-    setActiveIndex(newMatchedArray.length > 0 ? 0 : -1)
-    setValue(valueFromEvent)
-    fireOnChange(valueFromEvent)
-  }
+      const newMatchedArray = filterSuggestions(
+        valueFromEvent,
+        suggestions,
+        Boolean(ignoreCase),
+        getSuggestionValue
+      )
 
-  const getMatchedSuggestions = () => {
-    return memoizedFilterSuggestions(
+      setActiveIndex(newMatchedArray.length > 0 ? 0 : -1)
+      setValue(valueFromEvent)
+      fireOnChange(valueFromEvent)
+    },
+    [fireOnChange]
+  )
+
+  const getMatchedSuggestions = useCallback(() => {
+    return filterSuggestions(
       value,
       suggestions,
       Boolean(ignoreCase),
       getSuggestionValue
     ) as T[]
-  }
+  }, [value, suggestions, ignoreCase, getSuggestionValue])
 
-  const handleOnKeyDown: TextFieldProps['onKeyDown'] = (e) => {
-    if (activeIndex === -1) return
+  const handleOnKeyDown: TextFieldProps['onKeyDown'] = useCallback(
+    ({ key, preventDefault }: KeyboardEvent<HTMLDivElement>) => {
+      if (activeIndex === -1) return
 
-    const { keyCode } = e
+      if (allowedKeyCodes.includes(key as KeyEnum)) preventDefault()
 
-    const allowedKeyCodes = [
-      KeyEnum.TAB,
-      KeyEnum.ENTER,
-      KeyEnum.UP_ARROW,
-      KeyEnum.DOWN_ARROW
-    ]
+      if (
+        navigate &&
+        (key === KeyEnum.DOWN_ARROW || key === KeyEnum.UP_ARROW)
+      ) {
+        const matchedSuggestions = getMatchedSuggestions()
+        setActiveIndex(
+          key === KeyEnum.DOWN_ARROW
+            ? getNextSafeIndexFromArray(matchedSuggestions, activeIndex)
+            : getPreviousSafeIndexFromArray(matchedSuggestions, activeIndex)
+        )
+      }
+    },
+    [navigate, getMatchedSuggestions, activeIndex]
+  )
 
-    if (allowedKeyCodes.includes(keyCode)) {
-      e.preventDefault()
-    }
+  const handleOnKeyUp = useCallback(
+    ({ key }: KeyboardEvent<HTMLDivElement>) => {
+      if (
+        activeIndex >= 0 &&
+        (key === KeyEnum.TAB ||
+          key === KeyEnum.ENTER ||
+          key === KeyEnum.RIGHT_ARROW)
+      ) {
+        const matchedSuggestions = getMatchedSuggestions()
+        const matchedValue = matchedSuggestions[activeIndex]
 
-    if (
-      navigate &&
-      (keyCode === KeyEnum.DOWN_ARROW || keyCode === KeyEnum.UP_ARROW)
-    ) {
-      const matchedSuggestions = getMatchedSuggestions()
-      setActiveIndex(
-        keyCode === KeyEnum.DOWN_ARROW
-          ? getNextSafeIndexFromArray(matchedSuggestions, activeIndex)
-          : getPreviousSafeIndexFromArray(matchedSuggestions, activeIndex)
-      )
-    }
-  }
+        const newValue = getSuggestionValue
+          ? getSuggestionValue(matchedValue)
+          : String(matchedValue)
 
-  const handleOnKeyUp: TextFieldProps['onKeyUp'] = (e) => {
-    const { keyCode } = e
+        setValue(newValue)
 
-    if (
-      activeIndex >= 0 &&
-      (keyCode === KeyEnum.TAB ||
-        keyCode === KeyEnum.ENTER ||
-        keyCode === KeyEnum.RIGHT_ARROW)
-    ) {
-      const matchedSuggestions = getMatchedSuggestions()
-      const matchedValue = matchedSuggestions[activeIndex]
+        fireOnChange(newValue)
 
-      const newValue = getSuggestionValue
-        ? getSuggestionValue(matchedValue)
-        : String(matchedValue)
-
-      setValue(newValue)
-
-      fireOnChange(newValue)
-
-      onMatch && onMatch(matchedValue)
-    }
-  }
+        onMatch && onMatch(matchedValue)
+      }
+    },
+    [activeIndex]
+  )
 
   const getNeedle = () => {
     const matchedSuggestions = getMatchedSuggestions()
@@ -128,20 +136,31 @@ export const InlineSuggest = function <T>({
   return (
     <span style={{ position: 'relative' }}>
       <Input
+        {...textFieldProps}
         value={value}
         onChange={handleOnChange}
         onBlur={handleOnBlur}
-        onKeyDown={handleOnKeyDown}
         onKeyUp={handleOnKeyUp}
+        onKeyDown={handleOnKeyDown}
+        onFocus={handleFocus}
       />
       <Suggestion
+        isFocused={isFocused}
         value={value}
         needle={getNeedle()}
         shouldRenderSuggestion={shouldRenderSuggestion}
+        textFieldProps={textFieldProps}
       />
     </span>
   )
 }
+
+const allowedKeyCodes = [
+  KeyEnum.TAB,
+  KeyEnum.ENTER,
+  KeyEnum.UP_ARROW,
+  KeyEnum.DOWN_ARROW
+]
 
 export interface Props<T = string> {
   className?: string
@@ -154,4 +173,5 @@ export interface Props<T = string> {
   onInputBlur?(value: string): void
   onInputChange?(newValue: string): void
   onMatch?(matchedValue: T): void
+  textFieldProps?: TextFieldProps
 }

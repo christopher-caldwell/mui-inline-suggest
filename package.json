@@ -12,8 +12,8 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "microbundle-crl --no-compress --format modern,cjs --external=react,react-dom,react-is",
-    "start": "microbundle-crl watch --no-compress --format modern,cjs --external=react,react-dom,react-is",
+    "build": "microbundle-crl --compress --format modern,cjs --external=react,react-dom,react-is,@material-ui/core",
+    "start": "yarn build --watch",
     "prepare": "run-s build",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
@@ -32,7 +32,6 @@
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "@types/jest": "^25.1.4",
-    "@types/lodash.memoize": "^4.1.6",
     "@types/node": "^12.12.38",
     "@types/react": "^16.9.27",
     "@types/react-dom": "^16.9.7",
@@ -64,7 +63,5 @@
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "lodash.memoize": "^4.1.2"
-  }
+  "dependencies": {}
 }

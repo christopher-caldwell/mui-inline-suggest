@@ -1,26 +1,21 @@
 import React, { FC } from 'react'
-import TextField from '@material-ui/core/TextField'
+import TextField, { TextFieldProps } from '@material-ui/core/TextField'
 
 import { ShouldRenderSuggestionFn } from '../../utils/types'
-
-export interface SuggestionProps {
-  value?: string
-  needle: string
-  shouldRenderSuggestion?: ShouldRenderSuggestionFn
-}
 
 const Suggestion: FC<SuggestionProps> = ({
   needle,
   shouldRenderSuggestion,
-  value
+  value,
+  textFieldProps,
+  isFocused
 }) => {
   if (shouldRenderSuggestion && value && !shouldRenderSuggestion(value)) {
     return null
   }
-
   return (
     <TextField
-      variant='outlined'
+      {...textFieldProps}
       style={{
         position: 'absolute',
         top: '0',
@@ -30,9 +25,17 @@ const Suggestion: FC<SuggestionProps> = ({
         opacity: '0.4',
         zIndex: -1
       }}
-      value={value + needle}
+      value={value === '' && isFocused ? ' ' : value + needle}
     />
   )
+}
+
+export interface SuggestionProps {
+  value?: string
+  needle: string
+  shouldRenderSuggestion?: ShouldRenderSuggestionFn
+  textFieldProps?: TextFieldProps
+  isFocused: boolean
 }
 
 export default Suggestion
