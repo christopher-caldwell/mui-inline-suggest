@@ -3,13 +3,7 @@ import TextField, { TextFieldProps } from '@material-ui/core/TextField'
 
 import { ShouldRenderSuggestionFn } from '../../utils/types'
 
-const Suggestion: FC<SuggestionProps> = ({
-  needle,
-  shouldRenderSuggestion,
-  value,
-  textFieldProps,
-  isFocused
-}) => {
+const Suggestion: FC<SuggestionProps> = ({ needle, shouldRenderSuggestion, value, textFieldProps, isFocused }) => {
   if (shouldRenderSuggestion && value && !shouldRenderSuggestion(value)) {
     return null
   }

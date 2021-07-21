@@ -1,4 +1,4 @@
-import { GetSuggestionValueFn } from './types';
+import { GetSuggestionValueFn } from './types'
 
 export function filterSuggestions<T>(
   value: string,
@@ -7,27 +7,25 @@ export function filterSuggestions<T>(
   getSuggestionValue?: GetSuggestionValueFn<T>
 ) {
   if (!value) {
-    return [];
+    return []
   }
 
-  const rx = RegExp(`^${value}`, ignoreCase ? 'i' : undefined);
+  const rx = RegExp(`^${value}`, ignoreCase ? 'i' : undefined)
   return suggestions.filter(suggestion =>
-    getSuggestionValue
-      ? rx.test(getSuggestionValue(suggestion))
-      : rx.test(String(suggestion))
-  );
+    getSuggestionValue ? rx.test(getSuggestionValue(suggestion)) : rx.test(String(suggestion))
+  )
 }
 
 export function getNeedleFromString(text: string, current: string) {
-  return text.replace(text.substr(0, current.length), '');
+  return text.replace(text.substr(0, current.length), '')
 }
 
 export function getNextSafeIndexFromArray<T>(array: T[], current: number) {
-  return current + 1 > array.length - 1 ? 0 : current + 1;
+  return current + 1 > array.length - 1 ? 0 : current + 1
 }
 
 export function getPreviousSafeIndexFromArray<T>(array: T[], current: number) {
-  return current - 1 < 0 ? array.length - 1 : current - 1;
+  return current - 1 < 0 ? array.length - 1 : current - 1
 }
 
 export * from './KeyEnum'

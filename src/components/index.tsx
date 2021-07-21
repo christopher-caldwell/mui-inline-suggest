@@ -1,4 +1,4 @@
-import React, { useState, useCallback, KeyboardEvent } from 'react'
+import React, { useState, useCallback, KeyboardEvent, ChangeEvent } from 'react'
 import { TextFieldProps } from '@material-ui/core'
 
 import Input from './help/Input'
@@ -31,7 +31,7 @@ export const InlineSuggest = function <T>({
   const handleFocus = useCallback(() => {
     setIsFocused(true)
   }, [])
-  
+
   const handleOnBlur: TextFieldProps['onBlur'] = useCallback(
     ({ target: { value } }) => {
       onInputBlur && onInputBlur(value)
@@ -47,43 +47,31 @@ export const InlineSuggest = function <T>({
     [onInputChange]
   )
 
-  const handleOnChange: TextFieldProps['onChange'] = useCallback(
-    (e) => {
+  const handleOnChange = useCallback(
+    (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
       const valueFromEvent = e.currentTarget.value
 
-      const newMatchedArray = filterSuggestions(
-        valueFromEvent,
-        suggestions,
-        Boolean(ignoreCase),
-        getSuggestionValue
-      )
+      const newMatchedArray = filterSuggestions(valueFromEvent, suggestions, Boolean(ignoreCase), getSuggestionValue)
 
       setActiveIndex(newMatchedArray.length > 0 ? 0 : -1)
       setValue(valueFromEvent)
       fireOnChange(valueFromEvent)
     },
-    [fireOnChange]
+    [fireOnChange, getSuggestionValue, ignoreCase, suggestions]
   )
 
   const getMatchedSuggestions = useCallback(() => {
-    return filterSuggestions(
-      value,
-      suggestions,
-      Boolean(ignoreCase),
-      getSuggestionValue
-    ) as T[]
+    return filterSuggestions(value, suggestions, Boolean(ignoreCase), getSuggestionValue) as T[]
   }, [value, suggestions, ignoreCase, getSuggestionValue])
 
-  const handleOnKeyDown: TextFieldProps['onKeyDown'] = useCallback(
-    ({ key, preventDefault }: KeyboardEvent<HTMLDivElement>) => {
+  const handleOnKeyDown = useCallback(
+    (event: KeyboardEvent<HTMLDivElement>) => {
+      const { key } = event
       if (activeIndex === -1) return
 
-      if (allowedKeyCodes.includes(key as KeyEnum)) preventDefault()
+      if (allowedKeyCodes.includes(key as KeyEnum)) event.preventDefault()
 
-      if (
-        navigate &&
-        (key === KeyEnum.DOWN_ARROW || key === KeyEnum.UP_ARROW)
-      ) {
+      if (navigate && (key === KeyEnum.DOWN_ARROW || key === KeyEnum.UP_ARROW)) {
         const matchedSuggestions = getMatchedSuggestions()
         setActiveIndex(
           key === KeyEnum.DOWN_ARROW
@@ -97,18 +85,11 @@ export const InlineSuggest = function <T>({
 
   const handleOnKeyUp = useCallback(
     ({ key }: KeyboardEvent<HTMLDivElement>) => {
-      if (
-        activeIndex >= 0 &&
-        (key === KeyEnum.TAB ||
-          key === KeyEnum.ENTER ||
-          key === KeyEnum.RIGHT_ARROW)
-      ) {
+      if (activeIndex >= 0 && (key === KeyEnum.TAB || key === KeyEnum.ENTER || key === KeyEnum.RIGHT_ARROW)) {
         const matchedSuggestions = getMatchedSuggestions()
         const matchedValue = matchedSuggestions[activeIndex]
 
-        const newValue = getSuggestionValue
-          ? getSuggestionValue(matchedValue)
-          : String(matchedValue)
+        const newValue = getSuggestionValue ? getSuggestionValue(matchedValue) : String(matchedValue)
 
         setValue(newValue)
 
@@ -117,7 +98,7 @@ export const InlineSuggest = function <T>({
         onMatch && onMatch(matchedValue)
       }
     },
-    [activeIndex]
+    [activeIndex, fireOnChange, getMatchedSuggestions, getSuggestionValue, onMatch]
   )
 
   const getNeedle = () => {
@@ -155,12 +136,7 @@ export const InlineSuggest = function <T>({
   )
 }
 
-const allowedKeyCodes = [
-  KeyEnum.TAB,
-  KeyEnum.ENTER,
-  KeyEnum.UP_ARROW,
-  KeyEnum.DOWN_ARROW
-]
+const allowedKeyCodes = [KeyEnum.TAB, KeyEnum.UP_ARROW, KeyEnum.DOWN_ARROW]
 
 export interface Props<T = string> {
   className?: string
