@@ -1,5 +1,4 @@
 import React from 'react'
-
 import { InlineSuggest } from '@caldwell619/mui-inline-suggest'
 
 const App = () => {
@@ -13,10 +12,7 @@ const App = () => {
         alignItems: 'center'
       }}
     >
-      <InlineSuggest
-        textFieldProps={{ label: 'Test!', variant: 'outlined' }}
-        suggestions={['hYEY!']}
-      />
+      <InlineSuggest textFieldProps={{ label: 'Test!', variant: 'outlined' }} suggestions={['hYEY!']} />
     </div>
   )
 }

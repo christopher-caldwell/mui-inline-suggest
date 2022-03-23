@@ -4,7 +4,7 @@
   "description": "Made with create-react-library",
   "author": "christopher-caldwell",
   "license": "MIT",
-  "repository": "christopher-caldwell/@caldwell619/mui-inline-suggest",
+  "repository": "christopher-caldwell/mui-inline-suggest",
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.tsx",
