@@ -14,14 +14,7 @@ Took a lot of inspiration from [react-inline-suggest](https://www.npmjs.com/pack
 
 ## Demo
 
-URL coming soon
-
-_Sorry for the GIF quality._
-
-<p>
-  <img src="./docs/no-outline.gif"/>
-  <img src='./docs/outlined.gif' />
-</p>
+https://christopher-caldwell.github.io/mui-inline-suggest
 
 ## Install
 
