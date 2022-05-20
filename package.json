@@ -1,7 +1,7 @@
 {
   "name": "@caldwell619/mui-inline-suggest",
   "version": "1.0.4",
-  "description": "Made with create-react-library",
+  "description": "Material UI TextField component that will suggest the rest of the input, like an IDE or terminal",
   "author": "christopher-caldwell",
   "license": "MIT",
   "repository": "christopher-caldwell/mui-inline-suggest",
@@ -13,39 +13,36 @@
   },
   "scripts": {
     "format": "prettier --write src",
-    "build": "microbundle-crl --compress --format modern,cjs --external=react,react-dom,react-is,@material-ui/core",
-    "start": "yarn build --watch",
-    "prepublishOnly": "run-s build",
-    "test": "run-s test:unit test:lint test:build",
+    "build": "microbundle-crl --compress",
+    "build:watch": "yarn build --watch",
     "lint": "eslint --ext .ts,.tsx src",
-    "test:build": "run-s build",
-    "test:unit": "cross-env CI=1 react-scripts test --env=jsdom",
-    "test:watch": "react-scripts test --env=jsdom",
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build"
   },
   "peerDependencies": {
-    "react": ">=16.0.0"
+    "@emotion/react": ">=11",
+    "@emotion/styled": ">=11",
+    "@mui/material": ">=5",
+    "react": ">=16.0.0",
+    "react-dom": ">=16"
   },
   "devDependencies": {
-    "@material-ui/core": "^4.12.2",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "@types/jest": "^25.1.4",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.8.0",
     "@types/node": "^12.12.38",
-    "@types/react": "^16.9.27",
-    "@types/react-dom": "^16.9.7",
-    "cross-env": "^7.0.2",
-    "eslint-plugin-prettier": "^3.4.0",
-    "gh-pages": "^2.2.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "gh-pages": "^4.0.0",
     "microbundle-crl": "^0.13.10",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.0.4",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "prettier": "^2.4.1",
+    "rc": "^1.2.8",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
     "react-scripts": "^4.0.3",
-    "typescript": "^3.7.5"
+    "typescript": "^4.6.0"
   },
   "files": [
     "dist"
