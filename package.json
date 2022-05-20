@@ -1,6 +1,6 @@
 {
   "name": "@caldwell619/mui-inline-suggest",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "Material UI TextField component that will suggest the rest of the input, like an IDE or terminal",
   "author": "christopher-caldwell",
   "license": "MIT",
