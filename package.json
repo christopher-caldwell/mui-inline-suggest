@@ -13,8 +13,7 @@
   },
   "scripts": {
     "format": "prettier --write src",
-    "build": "microbundle-crl --compress",
-    "build:watch": "yarn build --watch",
+    "build": "tsc && tscpaths -p tsconfig.json -s src -o dist",
     "lint": "eslint --ext .ts,.tsx src",
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build"
@@ -34,6 +33,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "eslint": "^7.32.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^4.0.0",
     "gh-pages": "^4.0.0",
     "microbundle-crl": "^0.13.10",
@@ -41,7 +41,8 @@
     "rc": "^1.2.8",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "^5.0.1",
+    "tscpaths": "^0.0.9",
     "typescript": "^4.6.0"
   },
   "files": [
