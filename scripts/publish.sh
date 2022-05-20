@@ -28,10 +28,10 @@ if [ $? != 0 ]; then
   exit 1
 fi
 
-printf "\n\n$BICyan$(echo Bumping the release number..)$Color_Off"
+printf "\n\n$BICyan$(echo Bumping the version number..)$Color_Off"
 
-yarn release
+yarn bump:version
 
 printf "\n\n$BICyan$(echo Publishing new version..)$Color_Off"
 
-yarn publish-release
+yarn publish:release
