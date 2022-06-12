@@ -6,11 +6,7 @@
   "license": "MIT",
   "repository": "christopher-caldwell/mui-inline-suggest",
   "main": "dist/index.js",
-  "module": "dist/index.modern.js",
-  "source": "src/index.tsx",
-  "engines": {
-    "node": ">=10"
-  },
+  "types": "dist/index.d.ts",
   "scripts": {
     "format": "prettier --write src",
     "build": "tsc && tscpaths -p tsconfig.json -s src -o dist",
