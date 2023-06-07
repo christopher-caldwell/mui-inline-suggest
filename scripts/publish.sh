@@ -30,7 +30,7 @@ fi
 
 printf "\n\n$BICyan$(echo Bumping the version number..)$Color_Off"
 
-yarn bump:version
+git push --follow-tags origin master && yarn publish --access=public
 
 printf "\n\n$BICyan$(echo Publishing new version..)$Color_Off"
 

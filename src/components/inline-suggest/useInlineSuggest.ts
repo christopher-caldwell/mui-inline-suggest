@@ -11,7 +11,7 @@ import {
   GetSuggestionValueFn
 } from '@/utils'
 
-export const useInlineSuggest = function <T>({
+export const useInlineSuggest = function <TSuggestion>({
   getSuggestionValue,
   suggestions,
   ignoreCase,
@@ -19,7 +19,7 @@ export const useInlineSuggest = function <T>({
   onInputBlur,
   navigate,
   onMatch
-}: Props<T>) {
+}: Props<TSuggestion>) {
   const [activeIndex, setActiveIndex] = useState(-1)
   const [value, setValue] = useState('')
   const [isFocused, setIsFocused] = useState(false)
@@ -57,7 +57,7 @@ export const useInlineSuggest = function <T>({
   )
 
   const getMatchedSuggestions = useCallback(() => {
-    return filterSuggestions(value, suggestions, Boolean(ignoreCase), getSuggestionValue) as T[]
+    return filterSuggestions(value, suggestions, Boolean(ignoreCase), getSuggestionValue) as TSuggestion[]
   }, [value, suggestions, ignoreCase, getSuggestionValue])
 
   const onKeyDown: TextFieldProps['onKeyDown'] = useCallback(
@@ -124,16 +124,16 @@ export const useInlineSuggest = function <T>({
 
 const allowedKeyCodes = [KeyEnum.TAB, KeyEnum.UP_ARROW, KeyEnum.DOWN_ARROW]
 
-export interface Props<T = string> {
+export interface Props<TSuggestion = string> {
   className?: string
-  getSuggestionValue?: GetSuggestionValueFn<T>
+  getSuggestionValue?: GetSuggestionValueFn<TSuggestion>
   ignoreCase?: boolean
   inputValue?: string
   navigate?: boolean
   shouldRenderSuggestion?: ShouldRenderSuggestionFn
-  suggestions: T[]
+  suggestions: TSuggestion[]
   onInputBlur?(value: string): void
   onInputChange?(newValue: string): void
-  onMatch?(matchedValue: T): void
+  onMatch?(matchedValue: TSuggestion): void
   textFieldProps?: TextFieldProps
 }
