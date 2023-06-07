@@ -13,8 +13,8 @@
   "scripts": {
     "build": "tsc && tscpaths -p tsconfig.json -s src -o dist",
     "bump:version": "standard-version",
-    "predeploy": "cd example/vite && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/vite/build",
+    "predeploy": "cd example && yarn install && yarn run build",
+    "deploy": "gh-pages -d example/build",
     "format": "prettier --write src",
     "lint": "eslint --ext .ts,.tsx src",
     "publish:version": "sh scripts/publish.sh"
@@ -32,7 +32,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "gh-pages": "^4.0.0",
     "prettier": "^2.4.1",
-    "rc": "^1.2.8",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-scripts": "^5.0.1",

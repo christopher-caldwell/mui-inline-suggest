@@ -1073,7 +1073,7 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@caldwell619/mui-inline-suggest@link:../..":
+"@caldwell619/mui-inline-suggest@link:..":
   version "0.0.0"
   uid ""
 
@@ -1213,7 +1213,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.7.5.tgz#2c40f81449a4e554e9fc6396910ed4843ec2be50"
   integrity sha512-igX9a37DR2ZPGYtV6suZ6whr8pTFtyHL3K/oLUotxpSVO2ASaprmAe2Dkq7tBo7CRY7MMDrAa9nuQP9/YG8FxQ==
 
-"@emotion/react@link:../../node_modules/@emotion/react":
+"@emotion/react@link:../node_modules/@emotion/react":
   version "0.0.0"
   uid ""
 
@@ -1233,7 +1233,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/sheet/-/sheet-1.1.0.tgz#56d99c41f0a1cda2726a05aa6a20afd4c63e58d2"
   integrity sha512-u0AX4aSo25sMAygCuQTzS+HsImZFuS8llY8O7b9MDRzbJM0kVJlAz6KNDqcG7pOuQZJmj/8X/rAW+66kMnMW+g==
 
-"@emotion/styled@link:../../node_modules/@emotion/styled":
+"@emotion/styled@link:../node_modules/@emotion/styled":
   version "0.0.0"
   uid ""
 
@@ -1573,7 +1573,7 @@
   dependencies:
     "@babel/runtime" "^7.17.2"
 
-"@mui/material@link:../../node_modules/@mui/material":
+"@mui/material@link:../node_modules/@mui/material":
   version "0.0.0"
   uid ""
 
@@ -2024,7 +2024,7 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.35.tgz#635b7586086d51fb40de0a2ec9d1014a5283ba4a"
   integrity sha512-vu1SrqBjbbZ3J6vwY17jBs8Sr/BKA+/a/WtjRG+whKg1iuLFOosq872EXS0eXWILdO36DHQQeku/ZcL6hz2fpg==
 
-"@types/node@link:../../node_modules/@types/node":
+"@types/node@link:../node_modules/@types/node":
   version "0.0.0"
   uid ""
 
@@ -2058,7 +2058,7 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
 
-"@types/react-dom@link:../../node_modules/@types/react-dom":
+"@types/react-dom@link:../node_modules/@types/react-dom":
   version "0.0.0"
   uid ""
 
@@ -2094,7 +2094,7 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@link:../../node_modules/@types/react":
+"@types/react@link:../node_modules/@types/react":
   version "0.0.0"
   uid ""
 
@@ -7078,7 +7078,7 @@ prelude-ls@~1.1.2:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
 
-"prettier@link:../../node_modules/prettier":
+"prettier@link:../node_modules/prettier":
   version "0.0.0"
   uid ""
 
@@ -7254,7 +7254,7 @@ react-dev-utils@^12.0.1:
     strip-ansi "^6.0.1"
     text-table "^0.2.0"
 
-"react-dom@link:../../node_modules/react-dom":
+"react-dom@link:../node_modules/react-dom":
   version "0.0.0"
   uid ""
 
@@ -7283,7 +7283,7 @@ react-refresh@^0.11.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.11.0.tgz#77198b944733f0f1f1a90e791de4541f9f074046"
   integrity sha512-F27qZr8uUqwhWZboondsPx8tnC3Ct3SxZA3V5WyEvujRyyNv0VYPhoBg1gZ8/MV5tubQp76Trw8lTv9hzRBa+A==
 
-"react-scripts@link:../../node_modules/react-scripts":
+"react-scripts@link:../node_modules/react-scripts":
   version "0.0.0"
   uid ""
 
@@ -7297,7 +7297,7 @@ react-transition-group@^4.4.2:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-"react@link:../../node_modules/react":
+"react@link:../node_modules/react":
   version "0.0.0"
   uid ""
 
@@ -8319,7 +8319,7 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-"typescript@link:../../node_modules/typescript":
+"typescript@link:../node_modules/typescript":
   version "0.0.0"
   uid ""
 
