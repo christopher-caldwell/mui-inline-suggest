@@ -2,42 +2,35 @@
   "name": "@caldwell619/mui-inline-suggest",
   "version": "1.3.0",
   "description": "Material UI TextField component that will suggest the rest of the input, like an IDE or terminal",
-  "author": "christopher-caldwell",
-  "license": "MIT",
   "repository": "christopher-caldwell/mui-inline-suggest",
+  "license": "MIT",
+  "author": "christopher-caldwell",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "format": "prettier --write src",
     "build": "tsc && tscpaths -p tsconfig.json -s src -o dist",
-    "lint": "eslint --ext .ts,.tsx src",
+    "bump:version": "standard-version",
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build",
-    "bump:version": "standard-version",
-    "publish:release": "git push --follow-tags origin master && yarn publish",
+    "format": "prettier --write src",
+    "lint": "eslint --ext .ts,.tsx src",
     "publish:version": "sh scripts/publish.sh"
-  },
-  "peerDependencies": {
-    "@emotion/react": ">=11",
-    "@emotion/styled": ">=11",
-    "@mui/material": ">=5",
-    "react": ">=16.0.0",
-    "react-dom": ">=16"
   },
   "devDependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@mui/material": "^5.8.0",
-    "@types/node": "^12.12.38",
+    "@types/node": "^20.2.5",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "eslint": "^7.32.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-prettier": "^4.0.0",
     "gh-pages": "^4.0.0",
-    "microbundle-crl": "^0.13.10",
     "prettier": "^2.4.1",
-    "rc": "^1.2.8",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-scripts": "^5.0.1",
@@ -45,8 +38,11 @@
     "tscpaths": "^0.0.9",
     "typescript": "^4.6.0"
   },
-  "files": [
-    "dist"
-  ],
-  "dependencies": {}
+  "peerDependencies": {
+    "@emotion/react": ">=11",
+    "@emotion/styled": ">=11",
+    "@mui/material": ">=5",
+    "react": ">=16.0.0",
+    "react-dom": ">=16"
+  }
 }
